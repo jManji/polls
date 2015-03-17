@@ -20,6 +20,9 @@ class AppKernel extends Kernel
 			new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new stathis\UserBundle\StathisUserBundle(),
+            new stathis\RestBundle\StathisRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new FOS\RestBundle\FOSRestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

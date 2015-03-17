@@ -109,3 +109,19 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: stathis\UserBundle\Entity\User
+    
+sensio_framework_extra:
+    view:
+        annotations: false
+    
+fos_rest:
+    # param_fetcher_listener: true
+    # body_listener: true
+    # format_listener: true
+    # view:
+        # view_response_listener: 'force'
+    routing_loader:
+        default_format: json
+    format_listener: true
+    view:
+        view_response_listener: true
