@@ -61,4 +61,38 @@ class PollController extends FOSRestController implements ClassResourceInterface
                 'entity' => $entity,
                 );
     }
+        
+    /**
+     * Put action
+     * @var Request $request
+     * @var integer $id Id of the entity
+     * @return View|array
+     */
+    public function putAction(Request $request, $id)
+    {
+        # Get the poll with the correct id
+        $pollEntity = $this->getEntity($id);
+        
+        # Get the name parameter, the title of the poll option
+        $name = $request->get('name');
+        
+        # Instantiate a new PollOption object, setting the foreign
+        # id and name
+        $em = $this->getDoctrine()->getManager();
+        $entityInfo = $em->getClassMetadata("StathisRestBundle:PollOption");
+        $pollOptionEntity = new $entityInfo->name;
+        $pollOptionEntity->setPoll($pollEntity);
+        $pollOptionEntity->setName($name);
+        
+        
+        $pollEntity->addPollOption($pollOptionEntity);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($pollOptionEntity);
+        $em->flush();
+
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
+    }
+    
+    
 }

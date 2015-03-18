@@ -28,7 +28,13 @@ class Poll
      */
     private $name;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="PollOption", mappedBy="poll")
+     *
+     * @var Doctrine\Common\Collections\Collection $pollOptions
+     */
+    private $pollOptions;
+    
     /**
      * Get id
      *
@@ -60,5 +66,45 @@ class Poll
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->pollOptions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add pollOptions
+     *
+     * @param \stathis\RestBundle\Entity\PollOption $pollOptions
+     * @return Poll
+     */
+    public function addPollOption(\stathis\RestBundle\Entity\PollOption $pollOptions)
+    {
+        $this->pollOptions[] = $pollOptions;
+
+        return $this;
+    }
+
+    /**
+     * Remove pollOptions
+     *
+     * @param \stathis\RestBundle\Entity\PollOption $pollOptions
+     */
+    public function removePollOption(\stathis\RestBundle\Entity\PollOption $pollOptions)
+    {
+        $this->pollOptions->removeElement($pollOptions);
+    }
+
+    /**
+     * Get pollOptions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPollOptions()
+    {
+        return $this->pollOptions;
     }
 }
